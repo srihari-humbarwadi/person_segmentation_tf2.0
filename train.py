@@ -166,12 +166,6 @@ strategy = tf.distribute.MirroredStrategy()
 
 with strategy.scope():
     model = DeepLabV3Plus(H, W)
-    for layer in model.layers:
-        if isinstance(layer, tf.keras.layers.BatchNormalization):
-            layer.momentum = 0.9997
-            layer.epsilon = 1e-5
-        elif isinstance(layer, tf.keras.layers.Conv2D):
-            layer.kernel_regularizer = tf.keras.regularizers.l2(1e-4)
     model.compile(loss=loss,
                   optimizer=tf.keras.optimizers.Adam(2e-5),
                   metrics=['accuracy', dice_coef])
