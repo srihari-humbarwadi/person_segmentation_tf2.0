@@ -166,6 +166,7 @@ strategy = tf.distribute.MirroredStrategy()
 
 with strategy.scope():
     model = DeepLabV3Plus(H, W)
+    #TODO: Regularization loss model.add_loss(regularizer(model.layers[i].kernel))
     model.compile(loss=loss,
                   optimizer=tf.keras.optimizers.Adam(2e-5),
                   metrics=['accuracy', dice_coef])
